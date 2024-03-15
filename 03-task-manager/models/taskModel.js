@@ -3,7 +3,6 @@ const mongoose = require('mongoose')
 
 const url = process.env.MONGODB_URL
 
-
 mongoose.set('strictQuery', true)
 mongoose.connect(url).then((res)=> {
     console.log('Monngo connected to mongoDB')
@@ -12,8 +11,15 @@ mongoose.connect(url).then((res)=> {
 })
 
  const taskSchema  = new mongoose.Schema({
-    name: String,
-    status: String
+    name:{
+        type:String,
+        required:[true, 'Provide the name prop'],
+        maxLength:20
+    },
+    completed: {
+        type:Boolean,
+        required:[true, 'Status must be provided']
+    },
  })
  taskSchema.set('toJSON', {
     transform: (document, returnedObject) => {
@@ -22,7 +28,4 @@ mongoose.connect(url).then((res)=> {
       delete returnedObject.__v
     }
   })
-  
-
-
 module.exports = mongoose.model('Task', taskSchema)
