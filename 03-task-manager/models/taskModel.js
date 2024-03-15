@@ -3,6 +3,7 @@ const mongoose = require('mongoose')
 
 const url = process.env.MONGODB_URL
 
+
 mongoose.set('strictQuery', true)
 mongoose.connect(url).then((res)=> {
     console.log('Monngo connected to mongoDB')
