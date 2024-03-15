@@ -9,11 +9,9 @@ const generateID = (data)=> {
     console.log({max})
     return max + 1
 }
-
 const getPeople = (req, res)=> {
     res.json(people)
 }
-
 const searchPeople =  (req, res)=> {
     const {name, id} = req.query
     let sortedPeople = [...people]
@@ -63,16 +61,15 @@ const updatePerson =  (req, res)=>{
         res.json({success:true, data:upddatedPeople})
      }
 }
-
 const deletePerson =  (req, res)=>{
     const id = Number(req.params.id)
-    if(!id){
-       return res.status.apply(400).json({success:false, message:'id must be provided'})
+    const taskToDelete = tasks.find((task)=> task.id === id)
+    if(!taskToDelete){
+       return res.status.apply(400).json({success:false, message:'opps! seams the ID is not available'})
     }
     const data = people.filter((person)=> person.id !== id)
     res.status(201).json({success: true, data:data})
 }
-
 module.exports = {
     getPeople,
     searchPeople,
