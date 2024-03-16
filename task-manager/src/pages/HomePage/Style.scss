@@ -1,0 +1,7 @@
+.home{
+ 
+    @apply w-[35%] mx-auto flex flex-col pt-36 gap-3; 
+    .task-container{
+        @apply  flex flex-col gap-2;
+    }
+}
