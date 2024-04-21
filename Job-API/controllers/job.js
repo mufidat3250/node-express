@@ -20,29 +20,28 @@ const queryObject = {
     
     let result = await Job.find(queryObject)
 
-    if(sort === 'latest'){
-        result = result.sort('createdAt')
-    }
-    if(sort === 'oldest'){
-        result = result.sort('-createdAt')
-    }
-    if(sort === 'a-z') {
-        result = result.sort('position')
-    }
-    if(sort === 'z-a'){
-        result = result.sort('-positon')
-    }
+    // if(sort === 'latest'){
+    //     result = result.sort('createdAt')
+    // }
+    // if(sort === 'oldest'){
+    //     result = result.sort('-createdAt')
+    // }
+    // if(sort === 'a-z') {
+    //     result = result.sort('position')
+    // }
+    // if(sort === 'z-a'){
+    //     result = result.sort('-positon')
+    // }
 
-    const page = Number(request.query.page) || 1;
+//     const page = Number(request.query.page) || 1;
   const limit = Number(request.query.limit) || 10;
-  const skip = (page - 1) * limit;
+//   const skip = (page - 1) * limit;
 
-    result = result.skip(skip).limit(limit)
-    // i need to fix the error of malformed jwt token
-
-    console.log({queryObject})
+    // result = result.skip(skip).limit(limit)
+    const totalJob = await Job.countDocuments(queryObject) 
+    const numberOfPage = Math.ceil(totalJob/ limit)
     const jobs = await Job.find(queryObject);
-  response.status(200).json(jobs);
+  response.status(200).json({jobs, numberOfPage, jobs});
 };
 const getJob = async (request, response) => {
   const id = request.params.id;

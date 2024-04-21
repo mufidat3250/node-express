@@ -10,6 +10,7 @@ mongoose.connect(url).then((res)=> {
     console.log('Data not connected to mongo DB', error.message)
 })
 
+
  const taskSchema  = new mongoose.Schema({
     name:{
         type:String,
